@@ -1,0 +1,184 @@
+swagger: '2.0'
+info:
+  description: This is a sample server which gives weather information
+  version: 1.0.0
+  title: Weather API
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: mormapudiarun@gmail.com
+host: www.weather_api.heroku.com
+basePath: /v1
+tags:
+  - name: Weather API
+    description: Climate reports all over the world.
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+schemes:
+  - https
+paths:
+  /weather:
+    get:
+      tags:
+        - weather
+      summary: Finds weather at a place
+      description: Multiple status values can be provided with comma separated strings only when searching using placename and when searching using lng,lat
+      operationId: get_report
+      produces:
+        - application/json
+      parameters:
+        - name: placename
+          in: query
+          description: Gives climate info at a location based on given place name.
+          required: false
+          type: string
+          collectionFormat: multi
+        - name : zipcode
+          in: query
+          description: Find the city name based on zipcode given and then get climate info on that city/place.
+          required: false
+          type: string
+          collectionFormat: multi
+        - in: query
+          name: lat
+          type: integer
+          minimum: -90
+          maximum: 90
+          default: 0
+          required: false
+          description: Taking latitude as a intput to find location
+        - in: query
+          name: lng
+          type: integer
+          minimum: -180
+          maximum: 180
+          default: 0
+          required: false
+          description: Taking longitude as a intput to find location
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/placename'
+        '400':
+          description: Invalid input
+definitions:
+  placename:
+    type: object
+    properties:
+      State:
+        type: string
+        format: string
+        example: Michigan
+      countryCode:
+        type: string
+        format: string
+        example: US
+      apparentTemperature:
+        type: integer
+        format: int64
+        example: 39.57
+      cloudCover:
+        type: integer
+        format: int64
+        example: 0.85
+      dewPoint:
+        type: integer
+        format: int64
+        example: 34.29
+      humidity:
+        type: integer
+        format: int64
+        example: 0.69
+      icon:
+        type: string
+        format: string
+        example: partly-cloudy-day
+      nearestStormDistance:
+        type: integer
+        format: int64
+        example: 152
+      ozone:
+        type: integer
+        format: int64
+        example: 42
+      precipIntensity:
+        type: integer
+        format: int64
+        example: 316.16
+      precipIntensityError:
+        type: integer
+        format: int64
+        example: -0
+      precipProbability:
+        type: integer
+        format: int64
+        example: -0
+      precipType:
+        type: string
+        format: string
+      pressure:
+        type: integer
+        format: int64
+        example: 1012.21
+      summary:
+        type: string
+        format: string
+        example: Mostly Cloudy
+      temperature:
+        type: integer
+        format: int64
+        example: 43.26
+      time:
+        type: integer
+        format: int64
+        example: 1543166986
+      uvIndex:
+        type: integer
+        format: int64
+        example: 1
+      visibility:
+        type: integer
+        format: int64
+        example: -10
+      windBearing:
+        type: integer
+        format: int64
+        example: 284
+      windGust:
+        type: integer
+        format: int64
+        example: 7.94
+      windspeed:
+        type: integer
+        format: int64
+        example: 7.57
+      latitude:
+        type: integer
+        format: int64
+        example: 42.461669
+      longitude:
+        type: integer
+        format: int64
+        example: -83.461669
+      offset:
+        type: integer
+        format: int64
+        example: -5
+      placeName:
+        type: string
+        format: string
+        example: Farmington
+      postalCode:
+        type: integer
+        format: int64
+        example: 48335
+      timezone:
+        type: string
+        format: string
+        example: America/Detroit
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
