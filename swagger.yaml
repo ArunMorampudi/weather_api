@@ -29,7 +29,25 @@ paths:
       parameters:
         - name: placename
           in: query
-          description: You can search with City/ state/ Country , space sperated or ',' seperated.
+          description: You can search with placename.
+          required: false
+          type: string
+          collectionFormat: multi
+        - name: city
+          in: query
+          description: You can search climate of a city with its name.
+          required: false
+          type: string
+          collectionFormat: multi
+        - name: state
+          in: query
+          description: You can search climate of a state with its name.
+          required: false
+          type: string
+          collectionFormat: multi
+        - name: countrycode
+          in: query
+          description: You can search climate of a Country with its name.
           required: false
           type: string
           collectionFormat: multi
@@ -61,11 +79,11 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/placename'
+              $ref: '#/definitions/weather'
         '400':
           description: Invalid input
 definitions:
-  placename:
+  weather:
     type: object
     properties:
       State:
