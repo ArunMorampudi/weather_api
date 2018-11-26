@@ -5,7 +5,7 @@ import urllib.request
 import os
 app = Flask(__name__)
 
-# port = int(os.getenv("PORT"))
+port = int(os.getenv("PORT"))
 from services import returning, function_for_places, main_function
 
 
@@ -19,4 +19,4 @@ def analyze():
     return main_function()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True, port=port)
