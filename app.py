@@ -17,6 +17,9 @@ def analyze():
     lat = request.args.get('lat')
     lng= request.args.get('lng')
     placename = request.args.get('placename')
+    state = request.args.get('state')
+    city = request.args.get('city')
+    countrycode = request.args.get('countrycode')
     if placename:
         placename = placename.replace(" ","%20")
     zipcode = request.args.get('zipcode')
@@ -35,7 +38,7 @@ def analyze():
             return returning(response, lng), 200
         else:
             return returning(response, lat, lng), 200
-    elif placename:
+    elif placename or city or countrycode or state:
         response = urllib.request.urlopen(
             'http://api.geonames.org/findNearbyPostalCodesJSON?placename={}&maxRows=1&username=morampudiarun'.format(
                 placename)).read()
