@@ -6,7 +6,7 @@ info:
   termsOfService: 'http://swagger.io/terms/'
   contact:
     email: mormapudiarun@gmail.com
-host: www.weather_api.heroku.com
+host: weather-persistent-wildebeest.cfapps.io
 basePath: /v1
 tags:
   - name: Weather API
@@ -29,7 +29,7 @@ paths:
       parameters:
         - name: placename
           in: query
-          description: Gives climate info at a location based on given place name.
+          description: You can search with City/ state/ Country , space sperated or ',' seperated.
           required: false
           type: string
           collectionFormat: multi
