@@ -8,9 +8,18 @@ app = Flask(__name__)
 port = int(os.getenv("PORT"))
 from services import returning
 
+
+def function_for_places(placename):
+    response = urllib.request.urlopen(
+        'http://api.geonames.org/findNearbyPostalCodesJSON?placename={}&maxRows=1&username=morampudiarun'.format(
+            placename)).read()
+    return returning(response), 200
+
+
 @app.route('/')
 def welcome():
     return render_template("home.html")
+
 
 @app.route('/v1/weather')
 def analyze():
@@ -39,10 +48,14 @@ def analyze():
         else:
             return returning(response, lat, lng), 200
     elif placename or city or countrycode or state:
-        response = urllib.request.urlopen(
-            'http://api.geonames.org/findNearbyPostalCodesJSON?placename={}&maxRows=1&username=morampudiarun'.format(
-                placename)).read()
-        return returning(response), 200
+        if placename:
+            return function_for_places(placename)
+        elif city:
+            return function_for_places(city)
+        elif state:
+            return function_for_places(state)
+        elif countrycode:
+            return function_for_places(countrycode)
     else:
         return ({"Error":"Please pass proper Query parameters"}), 400
 
